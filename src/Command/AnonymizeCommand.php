@@ -144,7 +144,7 @@ class AnonymizeCommand extends Command
         if ($connection) {
             $configName = 'default';
         } elseif ($emName = $input->getOption('em')) {
-            $em = $this->registry->getEntityManager($emName);
+            $em = $this->registry->getManager($emName);
             $connection = $em->getConnection();
             $configName = (string) $emName;
         } else {
