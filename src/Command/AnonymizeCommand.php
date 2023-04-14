@@ -16,6 +16,7 @@ use WebnetFr\DatabaseAnonymizer\Command\AnonymizeCommandTrait;
 use WebnetFr\DatabaseAnonymizer\Config\TargetFactory;
 use WebnetFr\DatabaseAnonymizer\GeneratorFactory\GeneratorFactoryInterface;
 use WebnetFr\DatabaseAnonymizerBundle\Config\AnnotationConfigFactory;
+use WebnetFr\DatabaseAnonymizerBundle\Config\AttributeConfigFactory;
 
 /**
  * @author Vlad Riabchenko <vriabchenko@webnet.fr>
@@ -49,6 +50,11 @@ class AnonymizeCommand extends Command
     private $annotationConfigFactory;
 
     /**
+     * @var AttributeConfigFactory
+     */
+    private $attributeConfigFactory;
+
+    /**
      * @param GeneratorFactoryInterface $generatorFactory
      */
     public function __construct(GeneratorFactoryInterface $generatorFactory)
@@ -76,6 +82,16 @@ class AnonymizeCommand extends Command
     public function enableAnnotations(AnnotationConfigFactory $annotationConfigFactory)
     {
         $this->annotationConfigFactory = $annotationConfigFactory;
+    }
+
+    /**
+     * Enable annotations.
+     *
+     * @param AttributeConfigFactory $attributeConfigFactory
+     */
+    public function enableAttributes(AttributeConfigFactory $attributeConfigFactory)
+    {
+        $this->attributeConfigFactory = $attributeConfigFactory;
     }
 
     /**
@@ -113,6 +129,7 @@ class AnonymizeCommand extends Command
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'Password.')
             ->addOption('connection', 'C', InputOption::VALUE_REQUIRED, 'Name of the connection to database.')
             ->addOption('annotations', 'a', InputOption::VALUE_NONE, 'Use annotations. "em" option must be provided.')
+            ->addOption('attributes', 'r', InputOption::VALUE_NONE, 'Use attributes. "em" option must be provided.')
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Entity manager.')
         ;
     }
@@ -169,16 +186,30 @@ class AnonymizeCommand extends Command
             if (!$em) {
                 $output->writeln('<error>You must pass entity manager name in "--em" option. Pass "--em=default" if there is only one entity manager.</error>');
 
-                return self::FAILURE ;
+                return self::FAILURE;
             }
 
             if (!$this->annotationConfigFactory) {
                 $output->writeln('<error>You must enable Doctrine annotations: "annotations.reader" service is required.</error>');
 
-                return self::FAILURE ;
+                return self::FAILURE;
             }
 
             $config = $this->annotationConfigFactory->getConfig($em->getMetadataFactory()->getAllMetadata());
+        } elseif ($input->getOption('attributes')) {
+            if (!$em) {
+                $output->writeln('<error>You must pass entity manager name in "--em" option. Pass "--em=default" if there is only one entity manager.</error>');
+
+                return self::FAILURE;
+            }
+
+            if (!$this->attributeConfigFactory) {
+                $output->writeln('<error>You PHP verssion must support Attributes.</error>');
+
+                return self::FAILURE;
+            }
+
+            $config = $this->attributeConfigFactory->getConfig($em->getMetadataFactory()->getAllMetadata());
         } elseif ($configFile = $input->getOption('config')) {
             $configFilePath = realpath($input->getOption('config'));
             if (!is_file($configFilePath)) {

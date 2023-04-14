@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use WebnetFr\DatabaseAnonymizer\ConfigGuesser\ConfigGuesser;
 use WebnetFr\DatabaseAnonymizerBundle\Command\AnonymizeCommand;
 use WebnetFr\DatabaseAnonymizerBundle\Config\AnnotationConfigFactory;
+use WebnetFr\DatabaseAnonymizerBundle\Config\AttributeConfigFactory;
 use WebnetFr\DatabaseAnonymizerBundle\DependencyInjection\Configuration;
 
 /**
@@ -54,6 +55,19 @@ class AnonymizeCommandPass implements CompilerPassInterface
             $container->setDefinition(AnnotationConfigFactory::class, $annotationConfigFactoryDefinition);
 
             $anonymizeCommandDefinition->addMethodCall('enableAnnotations', [new Reference(AnnotationConfigFactory::class)]);
+        }
+
+        // Enable attributes
+        if (class_exists('Attribute')) {
+            $attributeConfigFactoryDefinition = new Definition(
+                AttributeConfigFactory::class,
+                [
+
+                ]
+            );
+            $container->setDefinition(AttributeConfigFactory::class, $attributeConfigFactoryDefinition);
+
+            $anonymizeCommandDefinition->addMethodCall('enableAttributes', [new Reference(AttributeConfigFactory::class)]);
         }
     }
 }
