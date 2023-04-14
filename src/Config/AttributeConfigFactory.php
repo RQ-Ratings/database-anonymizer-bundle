@@ -43,14 +43,14 @@ class AttributeConfigFactory
                     foreach ($propertyAttributes as $propertyAttribute) {
                         $fieldAttribute = $propertyAttribute->newInstance();
                         $fieldConfig    = [
-                            'generator'      => $fieldAttribute->generator,
-                            'formatter'      => $fieldAttribute->formatter,
-                            'preserve_empty' => $fieldAttribute->preserveEmpty,
-                            'locale'         => $fieldAttribute->locale,
+                            'generator' => $fieldAttribute->generator,
+                            'formatter' => $fieldAttribute->formatter,
+                            'locale'    => $fieldAttribute->locale,
+                            'seed'      => $fieldAttribute->seed,
+                            'unique'    => $fieldAttribute->unique,
+                            'optional'  => $fieldAttribute->optional,
+                            'arguments' => $fieldAttribute->arguments,
                         ];
-                        if ($fieldAttribute->locale === null) {
-                            unset($fieldConfig['locale']);
-                        }
                         $config[$tableName]['fields'][$fieldMapping['columnName']] = $fieldConfig;
                         break;
                     }

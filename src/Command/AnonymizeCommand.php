@@ -11,12 +11,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use WebnetFr\DatabaseAnonymizer\Anonymizer;
 use WebnetFr\DatabaseAnonymizer\Command\AnonymizeCommandTrait;
 use WebnetFr\DatabaseAnonymizer\Config\TargetFactory;
 use WebnetFr\DatabaseAnonymizer\GeneratorFactory\GeneratorFactoryInterface;
 use WebnetFr\DatabaseAnonymizerBundle\Config\AnnotationConfigFactory;
 use WebnetFr\DatabaseAnonymizerBundle\Config\AttributeConfigFactory;
+use WebnetFr\DatabaseAnonymizerBundle\CustomAnonymizer;
 
 /**
  * @author Vlad Riabchenko <vriabchenko@webnet.fr>
@@ -233,7 +233,7 @@ class AnonymizeCommand extends Command
         $targetFactory->setConnection($connection);
         $targetTables = $targetFactory->createTargets($config);
 
-        $anonymizer = new Anonymizer();
+        $anonymizer = new CustomAnonymizer();
         $anonymizer->anonymize($connection, $targetTables);
         return self::SUCCESS ;
     }
