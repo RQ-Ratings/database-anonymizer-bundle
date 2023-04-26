@@ -21,8 +21,8 @@ class CustomAnonymizer
     {
         foreach ($targets as $targetTable) {
             if ($targetTable->isTruncate()) {
-                $connection->exec('TRUNCATE TABLE '.$targetTable->getName());
-                return;
+                $connection->exec('TRUNCATE TABLE '. $targetTable->getName());
+                continue;
             }
 
             $allFieldNames = $targetTable->getAllFieldNames();
