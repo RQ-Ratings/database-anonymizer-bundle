@@ -24,10 +24,19 @@ class AttributeConfigFactory
                 continue;
             }
 
+            $truncate = false;
+            foreach($classAttribute as $attribute) {
+                $arguments = $attribute->getArguments();
+                if (isset($arguments['truncate'])) {
+                    $truncate = $arguments['truncate'];
+                }
+            }
+
             $tableName          = $metadata->table['name'];
             $config[$tableName] = [
                 'primary_key' => $metadata->identifier,
                 'fields'      => [],
+                'truncate'    => $truncate,
             ];
 
             foreach ($metadata->fieldMappings as $fieldName => $fieldMapping) {
@@ -57,7 +66,7 @@ class AttributeConfigFactory
                 }
             }
 
-            if (empty($config[$tableName]['fields'])) {
+            if (!$truncate && empty($config[$tableName]['fields'])) {
                 unset($config[$tableName]);
             }
         }

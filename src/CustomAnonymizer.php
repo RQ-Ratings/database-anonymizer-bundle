@@ -20,6 +20,11 @@ class CustomAnonymizer
     public function anonymize(Connection $connection, array $targets)
     {
         foreach ($targets as $targetTable) {
+            if ($targetTable->isTruncate()) {
+                $connection->exec('TRUNCATE TABLE '.$targetTable->getName());
+                return;
+            }
+
             $allFieldNames = $targetTable->getAllFieldNames();
             $pk            = $targetTable->getPrimaryKey();
 
