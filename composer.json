@@ -11,17 +11,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.2",
-        "symfony/console": "^5.4|^6.0",
-        "symfony/framework-bundle": "^5.4|^6.0",
-        "symfony/doctrine-bridge": "^5.4|^6.0",
+        "symfony/console": "^5.4|^6.0|^7.0",
+        "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+        "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
         "dragonniers/database-anonymizer": "^0.0.1"
     },
     "require-dev": {
-        "doctrine/annotations": "^1.6",
+        "doctrine/annotations": "^1.6|^2.0",
         "phpunit/phpunit": "^9.5.28",
         "fakerphp/faker": "^1.21",
-        "symfony/config": "^5.4|^6.0",
-        "symfony/yaml": "^5.4|^6.0",
+        "symfony/config": "^5.4|^6.0|^7.0",
+        "symfony/yaml": "^5.4|^6.0|^7.0",
         "doctrine/orm": "^2.6",
         "matthiasnoback/symfony-dependency-injection-test": "^4.3",
         "doctrine/doctrine-bundle": "^2.8.2"
