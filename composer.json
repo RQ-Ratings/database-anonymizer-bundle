@@ -20,7 +20,7 @@
         "symfony/console": "^5.4|^6.0|^7.0",
         "symfony/framework-bundle": "^5.4|^6.0|^7.0",
         "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
-        "rq-ratings/database-anonymizer": "dev-master"
+        "rq-ratings/database-anonymizer": "dev-master@dev"
     },
     "require-dev": {
         "doctrine/annotations": "^1.6|^2.0",
