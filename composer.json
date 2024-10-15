@@ -20,7 +20,7 @@
         "symfony/console": "^5.4|^6.0|^7.0",
         "symfony/framework-bundle": "^5.4|^6.0|^7.0",
         "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
-        "webnet-fr/database-anonymizer": "dev-master"
+        "dragonniers/database-anonymizer": "dev-master"
     },
     "require-dev": {
         "doctrine/annotations": "^1.6|^2.0",
