@@ -21,7 +21,7 @@ class CustomAnonymizer
     {
         foreach ($targets as $targetTable) {
             if ($targetTable->isTruncate()) {
-                $connection->exec('TRUNCATE TABLE '. $targetTable->getName());
+                $connection->executeStatement('TRUNCATE TABLE '. $targetTable->getName());
                 continue;
             }
 
@@ -35,11 +35,10 @@ class CustomAnonymizer
                 ->from($targetTable->getName())
                 ->getSQL()
             ;
-            $fetchRowsStmt = $connection->prepare($fetchRowsSQL);
-            $result        = $fetchRowsStmt->execute();
+            $result = $connection->executeQuery($fetchRowsSQL);
 
             // Anonymize all rows in current target table.
-            while ($row = $result->fetch()) {
+            while ($row = $result->fetchAssociative()) {
                 $values = [];
                 // Anonymize all target fields in current row.
                 foreach ($targetTable->getTargetFields() as $targetField) {
