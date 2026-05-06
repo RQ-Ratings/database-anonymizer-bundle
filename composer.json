@@ -17,9 +17,9 @@
     ],
     "require": {
         "php": "^7.2.5|^8.2",
-        "symfony/console": "^5.4|^6.0|^7.0",
-        "symfony/framework-bundle": "^5.4|^6.0|^7.0",
-        "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
+        "symfony/console": "^5.4|^6.0|^7.0|^8.0",
+        "symfony/framework-bundle": "^5.4|^6.0|^7.0|^8.0",
+        "symfony/doctrine-bridge": "^5.4|^6.0|^7.0|^8.0",
         "rq-ratings/database-anonymizer": "dev-master"
     },
     "require-dev": {
