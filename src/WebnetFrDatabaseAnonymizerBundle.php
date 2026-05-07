@@ -15,7 +15,7 @@ class WebnetFrDatabaseAnonymizerBundle extends Bundle
     /**
      * @inheritdoc
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new AnonymizeCommandPass());
         $container->addCompilerPass(new ChainGeneratorFactoryPass());
